@@ -181,7 +181,7 @@ class JsonServerConnection(mlat.client.net.ReconnectingConnection):
     heartbeat_interval = 120.0
     inactivity_timeout = 60.0
 
-    def __init__(self, host, port, stats_path, uuid_path, uuid, handshake_data, offer_zlib, offer_udp, return_results):
+    def __init__(self, host, port, stats_path, uuid_path, handshake_data, offer_zlib, offer_udp, return_results):
         super().__init__(host, port)
         self.handshake_data = handshake_data
         self.offer_zlib = offer_zlib
@@ -199,9 +199,7 @@ class JsonServerConnection(mlat.client.net.ReconnectingConnection):
         self.stats_path = stats_path
 
 
-        if uuid is not None:
-            self.uuid = uuid
-        elif uuid_path is not None:
+        if uuid_path is not None:
             try:
                 with open(uuid_path) as file:
                     self.uuid = file.readline().rstrip('\n')
